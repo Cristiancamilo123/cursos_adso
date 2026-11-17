@@ -13,6 +13,8 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController correoController = TextEditingController();
   final TextEditingController claveController = TextEditingController();
 
+  bool ocultarClave = true;
+
   void iniciarSesion() {
     String correo = correoController.text.trim();
     String clave = claveController.text.trim();
@@ -86,11 +88,23 @@ class _LoginViewState extends State<LoginView> {
             const SizedBox(height: 20),
             TextField(
               controller: claveController,
-              obscureText: true,
-              decoration: const InputDecoration(
+              obscureText: ocultarClave,
+              decoration: InputDecoration(
                 labelText: 'Contraseña',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.lock),
+                border: const OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.lock),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    ocultarClave
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      ocultarClave = !ocultarClave;
+                    });
+                  },
+                ),
               ),
             ),
             const SizedBox(height: 25),
